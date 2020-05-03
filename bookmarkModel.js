@@ -59,7 +59,7 @@ const Bookmarks = {
     },
 
     removeBookmark: function (id) {
-        return bookmarkColletion
+        return bookmarkCollection
                       .deleteOne({
                 id:id
             })
@@ -71,45 +71,39 @@ const Bookmarks = {
             });
     },
    
-     //CHANGE iooijoijojoi
         updateBookmark: function(id,title,description,url,rating){
-            return bookmarksColletion
-            .findOne({id:query},function(err,res){
-                if(err){
-                    return err;
-                }
-                if(res === null){
-                    return res;
-                }
-                if(title){
-                    res.title = title;
-                }
-                if(description){
-                    res.description = description;
-                }
-                if(url){
-                    res.url = url;
-                }
-                if(rating){
-                    res.rating = Number(rating);
-                }
-                res.save().then(res=>{
+            return bookmarkCollection
+            .findOne({id:query},
+                function(err,res){
+                    if(err){
+                        return err;
+                    }
+                    if(title){
+                        res.title = title;
+                    }
+                    if(description){
+                        res.description = description;
+                    }
+                    if(url){
+                        res.url = url;
+                    }
+                    if(rating){
+                        res.rating = Number(rating);
+                    }
+                    res.save().then(res=>{
                     return res;
                 })
                 .catch(err =>{
                     return err;
                 })
             })
-            .then(result =>{
-                return result;
+            .then(bookUpdated =>{
+                return bookUpdated;
             })
             .catch(err=>{
                 return err
             })
         }
-
-     
     }
-
 
 module.exports = { Bookmarks };
