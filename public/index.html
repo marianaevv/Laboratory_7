@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks App</title>
+    <link href="./css/index.css" rel ="stylesheet" type="text/css">
+</head>
+<body>
+    <form class ="bookmarksForm">
+        <div class ="searchByTitle">
+            <label> Search bookmarks by title</label>
+            <br>
+            Title:
+            <input type="text" class="titleToGet" name="title">
+            <button class="getBtn" type="submit">Get Bookmarks</button> 
+            <button class="getAllBtn" type="submit">Get All Bookmarks</button> 
+       
+        </div>
+        <br>
+        <div class="addBookmark">
+            <label> Add a bookmark</label>
+            <br>
+            Title:
+            <input type="text" class="titleToAdd" name="title">
+            Description:
+            <input type="text" class="descriptionToAdd" name="description">
+            URL:
+            <input type="text" class="urlToAdd" name="url">
+            Rating:
+            <input type="text" class="ratingToAdd" name="rating">
+            <button class="addBtn" type="submit">Add Bookmarks</button>
+        </div>
+        <br>
+        <div class="deleteBookmark">
+            <label>Delete Bookmark</label>
+            <br>
+            Id:
+            <input type="text" class="idToDelete" name="id">
+            <button class="deleteBtn" type="submit">Delete Bookmarks</button>
+        </div>
+        <br>
+        <div class="updateBookmark">
+            <label>Update Bookmark</label>
+            <br>
+            id:<input type="text" class="idToUpdate" name="title">
+            Title:
+            <input type="text" class="titleToUpdate" name="title">
+            Description:
+            <input type="text" class="descriptionToUpdate" name="description">
+            URL:
+            <input type="text" class="urlToUpdate" name="url">
+            Rating:
+            <input type="text" class="ratingToUpdate" name="rating">
+            <button class="updateBtn" type="submit">Update Bookmarks</button>
+        </div>
+    </form>
+    <section class="results">
+
+    </section>
+    <script src="./js/index.js"></script>
+</body>
+</html>
