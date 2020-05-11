@@ -2,14 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const uuidv4 = require("uuid/v4");
-const { Bookmarks } = require ('./bookmarkModel');
+const { Bookmarks } = require ('./models/bookmarkModel');
 const mongoose = require ('mongoose');
 const app = express();
 const jsonParser = bodyParser.json();
 app.use(morgan('dev'));
-
+app.use(express.static("public"));
 const auth = require("./middleware/authValidation");
 app.use(auth);
+
+
 
 //Getting all bookmarks 
 app.get('/api/bookmarks', (req, res) => {
@@ -66,12 +68,13 @@ app.post('/api/createBookmark',jsonParser, (req,res)=>{
         });
 });
 //DELETE
-app.delete('/api/deleteBookmark', (req,res)=>{
-    let id = req.query.id;
-    if(!id){
-        res.statusMessage = "Please send the 'id' to delete a student";
-        return res.status(406).end();
+app.delete('/api/deleteBookmark/:id', (req,res)=>{
+    let id = req.params.id;
+    if( !id ){
+        res.statusMessage = "Please send the 'id' to delete a bookmark";
+        return res.status( 406 ).end();
     }
+
     Bookmarks
     .removeBookmark(id)
     .then(book =>{
@@ -84,21 +87,16 @@ app.delete('/api/deleteBookmark', (req,res)=>{
 });
 
 app.patch('/bookmark/:id', jsonParser, (req, res) => {
-    let idBody = req.body.id;
-    let idParam = req.params.id;
-    if (!idBody || !idParam) {
+    let id = req.params.id;
+    if (!id) {
         res.statusMessage = "The id is missing in your query."
         return res.status(406).end();
-    }
-    if (idBody != idParam) {
-        res.statusMessage = "The 'id' sent in the body and the 'id' sent through the path parameters are different.";
-        return res.status(409).end()
     }
     let title = req.body.title;
     let description = req.body.description;
     let url = req.body.url;
     let rating = req.body.rating;
-    Bookmarks.updateBookmark(bodyId,title,description,url,rating)
+    Bookmarks.updateBookmark(id,title,description,url,rating)
     .then(itemToUpdate =>{
         if(itemToUpdate){
             res.statusMessage = "The post has been updated";
