@@ -71,15 +71,15 @@ const Bookmarks = {
             });
     },
    
-        updateBookmark: function(id,title,description,url,rating){
-            return bookmarkCollection
-            .updateOne({id : id}, {$set:newItems})
-            .then( results =>{
-                return results;
-            })
-            .catch( err => {
-                return err;
-            });
+    updateBookmark : function(id, title, description, url, rating) {
+        return bookmarkCollection
+        .updateOne({id:id}, {$set:{title:title,description:description, url:url, rating:rating}})
+        .then(bookmark => {
+            return bookmark;
+        })
+        .catch(err => {
+            return (err);
+        })
         }
     }
 

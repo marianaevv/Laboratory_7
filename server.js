@@ -100,7 +100,7 @@ app.patch('/bookmark/:id', jsonParser, (req, res ) => {
     Bookmarks.updateBookmark(id, newItems)
     .then(result => {
         console.log(result);
-        if(result.nModified > 0){
+        if(result.modified > 0){
             return res.status( 202 ).json(result);
         }
         else{
