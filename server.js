@@ -87,8 +87,35 @@ app.delete('/api/deleteBookmark/:id', (req,res)=>{
         return res.status(500).end();
     })
 });
+app.patch('/bookmark/:id', jsonParser, (req, res ) => {
+    
+    let id = req.params.id;
+    if( !id ){
+        res.statusMessage = "Please send the 'id'";
+        return res.status( 406 ).end();
+    }
 
-app.patch('/bookmark/:id', jsonParser, (req, res) => {
+    const newItems = req.body;
+
+    Bookmarks.updateBookmark(id, newItems)
+    .then(result => {
+        console.log(result);
+        if(result.nModified > 0){
+            return res.status( 202 ).json(result);
+        }
+        else{
+            res.statusMessage = "There is no bookmark with the id passed";
+        return res.status( 409 ).end();
+        }
+    })
+    .catch( err => {
+        res.statusMessage =  "Somethong went wrong with the DB";
+            return res.status( 500 ).end();
+    });
+})
+
+
+/*app.patch('/bookmark/:id', jsonParser, (req, res) => {
     let id = req.params.id;
     if (!id) {
         res.statusMessage = "The id is missing in your query."
@@ -113,7 +140,7 @@ app.patch('/bookmark/:id', jsonParser, (req, res) => {
         res.statusMessage = "Something went wrong.";
         return res.status(500).end();
     })
-});
+});*/
 
 app.listen(PORT, () =>{
     console.log("This server is running on port 8080");

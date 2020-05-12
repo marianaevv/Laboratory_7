@@ -73,36 +73,13 @@ const Bookmarks = {
    
         updateBookmark: function(id,title,description,url,rating){
             return bookmarkCollection
-            .findOne({id:query},
-                function(err,res){
-                    if(err){
-                        return err;
-                    }
-                    if(title){
-                        res.title = title;
-                    }
-                    if(description){
-                        res.description = description;
-                    }
-                    if(url){
-                        res.url = url;
-                    }
-                    if(rating){
-                        res.rating = Number(rating);
-                    }
-                    res.save().then(res=>{
-                    return res;
-                })
-                .catch(err =>{
-                    return err;
-                })
+            .updateOne({id : id}, {$set:newItems})
+            .then( results =>{
+                return results;
             })
-            .then(bookUpdated =>{
-                return bookUpdated;
-            })
-            .catch(err=>{
-                return err
-            })
+            .catch( err => {
+                return err;
+            });
         }
     }
 
